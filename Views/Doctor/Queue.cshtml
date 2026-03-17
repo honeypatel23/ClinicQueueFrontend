@@ -1,0 +1,73 @@
+﻿@model List<ClinicQueueFrontend.Models.QueueEntry>
+
+<h2>Doctor Queue</h2>
+
+<hr />
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+@if (Model == null || Model.Count == 0)
+{
+    <div class="alert alert-info">
+        No patients in queue today.
+    </div>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Token</th>
+                <th>Patient Name</th>
+                <th>Status</th>
+                <th>Appointment Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.tokenNumber</td>
+                    <td>@item.name</td>
+                    <td>
+                        @if (item.status == "waiting")
+                        {
+                            <span class="badge bg-warning text-dark">Waiting</span>
+                        }
+                        else if (item.status == "in_progress")
+                        {
+                            <span class="badge bg-primary">In Progress</span>
+                        }
+                        else if (item.status == "done")
+                        {
+                            <span class="badge bg-success">Done</span>
+                        }
+                        else if (item.status == "skipped")
+                        {
+                            <span class="badge bg-danger">Skipped</span>
+                        }
+                    </td>
+
+                    <td>@item.id</td>
+
+                    <td>
+                        <a href="/Prescription/Add/@item.id" class="btn btn-sm btn-success">
+                            Add Prescription
+                        </a>
+
+                        <a href="/Report/Add/@item.id" class="btn btn-sm btn-info">
+                            Add Report
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

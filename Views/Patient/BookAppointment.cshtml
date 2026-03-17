@@ -1,0 +1,35 @@
+﻿<h2>Book Appointment</h2>
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+<form method="post">
+
+    <div class="mb-3">
+        <label>Select Date</label>
+        <input type="date" name="date" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label>Select Time Slot</label>
+
+        <select name="timeSlot" class="form-control">
+
+            <option>09:00-09:15</option>
+            <option>09:15-09:30</option>
+            <option>09:30-09:45</option>
+            <option>09:45-10:00</option>
+
+            <option>10:00-10:15</option>
+            <option>10:15-10:30</option>
+            <option>10:30-10:45</option>
+            <option>10:45-11:00</option>
+
+        </select>
+    </div>
+
+    <button class="btn btn-primary">Book Appointment</button>
+
+</form>

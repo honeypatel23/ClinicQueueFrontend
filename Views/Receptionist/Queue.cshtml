@@ -1,0 +1,54 @@
+﻿@model List<ClinicQueueFrontend.Models.QueueEntry>
+
+<h2>Today's Queue</h2>
+
+<hr />
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+@if (Model == null || Model.Count == 0)
+{
+    <div class="alert alert-info">No queue today</div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Token</th>
+                <th>Patient</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.tokenNumber</td>
+                    <td>@item.name</td>
+                    <td>@item.status</td>
+
+                    <td>
+                        <form method="post" action="/Receptionist/UpdateStatus">
+                            <input type="hidden" name="id" value="@item.id" />
+
+                            <select name="status" class="form-control mb-1">
+                                <option value="waiting">Waiting</option>
+                                <option value="in_progress">In Progress</option>
+                                <option value="done">Done</option>
+                                <option value="skipped">Skipped</option>
+                            </select>
+
+                            <button class="btn btn-sm btn-primary">Update</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

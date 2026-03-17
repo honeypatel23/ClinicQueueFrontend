@@ -1,0 +1,37 @@
+﻿@model List<ClinicQueueFrontend.Models.Appointment>
+
+<h2>My Appointments</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Time Slot</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.date</td>
+                <td>@item.slot</td>
+                <td>
+                    @if (item.status == "queued")
+                    {
+                        <span class="badge bg-warning">Queued</span>
+                    }
+                    else if (item.status == "in_progress")
+                    {
+                        <span class="badge bg-primary">In Progress</span>
+                    }
+                    else if (item.status == "done")
+                    {
+                        <span class="badge bg-success">Done</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
